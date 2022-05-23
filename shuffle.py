@@ -31,8 +31,8 @@ def extension_gen(e):
         ext = e
         e = '.' + (''.join(secrets.choice(string.ascii_lowercase) for _ in range(len(e) - 1))) # Might randomise the length of the exts
     
-    exts_rand.pop(prev)
-    exts_rand.update({e:exts_rand.get(ext)})
+    ext = exts_rand.pop(prev)
+    exts_rand.update({e:ext})
     print(exts_rand)
     return e
 
@@ -94,6 +94,11 @@ if __name__ == "__main__":
                                 remove_key(hkey, f'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\{ext}')
                             with winreg.ConnectRegistry(None, winreg.HKEY_CLASSES_ROOT) as hkey:
                                 remove_key(hkey, ext)
+                    # Allow for multiple files with the same extention
+                    elif ext in exts_rand.values():
+                        pos = exts_rand.index(ext)
+                        new_ext = exts_rand[pos]
+                        os.rename(f, f'{root}{new_ext}')
 
         """ Don't think I need this
         else:
