@@ -61,13 +61,14 @@ def remove_key(parent_key, old_key):
 
 if __name__ == "__main__":
     extension_init()
-    print(exts_rand)
     for d in dirs:
         # Check directory exists
         if os.path.isdir(d):
             # Rotate file extentions in dir that are in extention list
             # Step through any child dirs
             dir = os.listdir(d)
+            print(dir)
+
             for f in dir:
                 print(f)
                 print(f'{d}\\{f}')
@@ -100,6 +101,7 @@ if __name__ == "__main__":
                     pos = exts_rand.index(ext)
                     new_ext = exts_rand[pos]
                     os.rename(f, f'{root}{new_ext}')
+
 
         """ Don't think I need this
         else:

@@ -2,7 +2,7 @@ import xlsxwriter
 import random
 
 # Create an new Excel file and add a worksheet.
-workbook = xlsxwriter.Workbook('employee_ssn_data.xlsx')
+workbook = xlsxwriter.Workbook('C:\\Users\\FinnC.DESKTOP-J259HOQ\\Documents\\employee_ssn_data.xlsx')
 worksheet = workbook.add_worksheet()
 
 # Write some simple text.

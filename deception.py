@@ -7,8 +7,8 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
-    path = 'C:\\Users\\Finn\\OneDrive\\Uni\\Year4\\Sem2\\ENGG4812\\ENGG4812-Thesis-Project\\test-files'
-    event_handler = PatternMatchingEventHandler(patterns=["*.pptx"])
+    path = 'C:\\Users\\FinnC.DESKTOP-J259HOQ\\Documents'
+    event_handler = PatternMatchingEventHandler(patterns=['*employee_ssn_data.xlsx'])
     event_handler.on_modified = LoggingEventHandler().on_modified
     observer = Observer()
     observer.schedule(event_handler, path)
