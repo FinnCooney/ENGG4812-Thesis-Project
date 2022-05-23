@@ -96,11 +96,11 @@ if __name__ == "__main__":
                                 remove_key(hkey, f'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\{ext}')
                             with winreg.ConnectRegistry(None, winreg.HKEY_CLASSES_ROOT) as hkey:
                                 remove_key(hkey, ext)
-                # Allow for multiple files with the same extention
-                elif ext in exts_rand.values():
-                    pos = exts_rand.index(ext)
-                    new_ext = exts_rand[pos]
-                    os.rename(f, f'{root}{new_ext}')
+                    # Allow for multiple files with the same extention 
+                    elif ext in exts_rand.values():
+                        pos = list(exts_rand.values()).index(ext)
+                        new_ext = list(exts_rand.keys())[pos]
+                        os.rename(f'{d}\\{f}', f'{d}\\{root}{new_ext}')
 
 
         """ Don't think I need this
