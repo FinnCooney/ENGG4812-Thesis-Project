@@ -4,8 +4,8 @@ import winreg # Used to update file extention mappings in registry
 import string
 import secrets
 
-dirs = {'C:\\Users\\Finn\\OneDrive\\Uni\\Year4\\Sem2\\ENGG4812\\ENGG4812-Thesis-Project\\test-files'}
-protected_exts = {'.pptx', '.docx', '.pdf'}
+dirs = {'C:\\Users\\FinnC.DESKTOP-J259HOQ\\Documents'}
+protected_exts = {'.der', '.pfx', '.key', '.crt', '.csr', '.p12', '.pem', '.odt', '.ott', '.sxw', '.stw', '.uot', '.3ds', '.max', '.3dm', '.ods', '.ots', '.sxc', '.stc', '.dif', '.slk', '.wb2', '.odp', '.otp', '.sxd', '.std', '.uop', '.odg', '.otg', '.sxm', '.mml', '.lay', '.lay6', '.asc', '.sqlite3', '.sqlitedb', '.sql', '.accdb', '.mdb', '.dbf', '.odb', '.frm', '.myd', '.myi', '.ibd', '.mdf', '.ldf', '.sln', '.suo', '.cpp', '.pas', '.asm', '.cmd', '.bat', '.ps1', '.vbs', '.dip', '.dch', '.sch', '.brd', '.jsp', '.php', '.asp', '.java', '.jar', '.class', '.mp3', '.wav', '.swf', '.fla', '.wmv', '.mpg', '.vob', '.mpeg', '.asf', '.avi', '.mov', '.mp4', '.3gp', '.mkv', '.3g2', '.flv', '.wma', '.mid', '.m3u', '.m4u', '.djvu', '.svg', '.psd', '.nef', '.tiff', '.tif', '.cgm', '.raw', '.gif', '.png', '.bmp', '.jpg', '.jpeg', '.vcd', '.iso', '.backup', '.zip', '.rar', '.tgz', '.tar', '.bak', '.tbk', '.bz2', '.PAQ', '.ARC', '.aes', '.gpg', '.vmx', '.vmdk', '.vdi', '.sldm', '.sldx', '.sti', '.sxi', '.602', '.hwp', '.snt', '.onetoc2', '.dwg', '.pdf', '.wk1', '.wks', '.123', '.rtf', '.csv', '.txt', '.vsdx', '.vsd', '.edb', '.eml', '.msg', '.ost', '.pst', '.potm', '.potx', '.ppam', '.ppsx', '.ppsm', '.pps', '.pot', '.pptm', '.pptx', '.ppt', '.xltm', '.xltx', '.xlc', '.xlm', '.xlt', '.xlw', '.xlsb', '.xlsm', '.xlsx', '.xls', '.dotx', '.dotm', '.dot', '.docm', '.docb', '.docx', '.doc'}
 exts_rand = {}
 
 def extExists(ext) -> bool:
@@ -70,7 +70,8 @@ if __name__ == "__main__":
             dir = os.listdir(d)
             for f in dir:
                 print(f)
-                if os.path.isfile(f):
+                print(f'{d}\\{f}')
+                if os.path.isfile(f'{d}\\{f}'):
                     split = os.path.splitext(f)
                     root = split[0]
                     ext = split[1]
@@ -86,7 +87,7 @@ if __name__ == "__main__":
                             create_key(hkey, f'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\{ext}', f'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\{new_ext}')
                         with winreg.ConnectRegistry(None, winreg.HKEY_CLASSES_ROOT) as hkey:
                             create_key(hkey, ext, new_ext)
-                        os.rename(f, f'{root}{new_ext}')
+                        os.rename(f'{d}\\{f}', f'{d}\\{root}{new_ext}')
 
                         # Clean up old extention
                         if ext not in protected_exts:
@@ -94,11 +95,11 @@ if __name__ == "__main__":
                                 remove_key(hkey, f'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\{ext}')
                             with winreg.ConnectRegistry(None, winreg.HKEY_CLASSES_ROOT) as hkey:
                                 remove_key(hkey, ext)
-                    # Allow for multiple files with the same extention
-                    elif ext in exts_rand.values():
-                        pos = exts_rand.index(ext)
-                        new_ext = exts_rand[pos]
-                        os.rename(f, f'{root}{new_ext}')
+                # Allow for multiple files with the same extention
+                elif ext in exts_rand.values():
+                    pos = exts_rand.index(ext)
+                    new_ext = exts_rand[pos]
+                    os.rename(f, f'{root}{new_ext}')
 
         """ Don't think I need this
         else:
